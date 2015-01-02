@@ -1,0 +1,3 @@
+# {{ ansible_managed }}
+Cmnd_Alias BACKUPPC_RSYNC=/usr/bin/nice -n 19 /usr/bin/ionice -c3 /usr/bin/rsync *
+{{backuppc_user}} ALL=(ALL) NOPASSWD:BACKUPPC_RSYNC

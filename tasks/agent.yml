@@ -1,0 +1,35 @@
+---
+
+- name: Install rsync
+  apt: pkg=rsync install_recommends=no cache_valid_time=3600 update_cache=yes
+
+- name: create backuppc user
+  user:
+    name={{backuppc_user}}
+    comment='{{backuppc_comment}}'
+    system=yes
+    home={{backuppc_home}}
+    state=present
+
+- name: Create backuppc ssh directory
+  file:
+    path: '{{backuppc_home}}/.ssh'
+    owner: '{{backuppc_user}}'
+    group: '{{ backuppc_user }}'
+    mode: '0700'
+    state: directory
+  when:
+    backuppc_ssh_public_key is defined
+    
+- name: Set up authorized_keys for backuppc user
+  authorized_key:
+    user: '{{backuppc_user}}'
+    key: '{{ backuppc_ssh_public_key }}'
+  when:
+    backuppc_ssh_public_key is defined
+
+- include: sudo.yml
+  when: ansible_lsb.codename not in [ "sarge", "etch", "lenny" ]
+
+- include: sudo-old.yml
+  when: ansible_lsb.codename in [ "sarge", "etch", "lenny" ]

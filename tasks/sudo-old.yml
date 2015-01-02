@@ -1,0 +1,11 @@
+---
+
+- name: Add ansible to sudoers (old style)
+  lineinfile:
+    dest="/etc/sudoers"
+    mode=0440
+    line='{{item}}'
+    insertafter=EOF
+  with_items:
+    - 'Cmnd_Alias BACKUPPC_RSYNC=/usr/bin/nice -n 19 /usr/bin/ionice -c3 /usr/bin/rsync *'
+    - 'backuppc ALL=(ALL) NOPASSWD:BACKUPPC_RSYNC'

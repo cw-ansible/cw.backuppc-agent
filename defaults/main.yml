@@ -1,0 +1,20 @@
+---
+
+## Name of backuppc user
+backuppc_user: backuppc
+
+## Gecos information for backuppc user
+backuppc_comment: Backuppc Bot
+
+## Home directory of backuppc user
+backuppc_home: /var/lib/backuppc
+
+## Backuppc public ssh key
+#
+# This is required if you want passwordless backup. Trust me this is what
+# you need. This variable is intentionally left blank since it is specific
+# to your environment.
+#
+# You can add the raw ssh public key or load it from a file.
+#
+# backuppc_ssh_public_key: '{{ lookup("file", "path/to/backuppc/id_rsa.pub")}}'
